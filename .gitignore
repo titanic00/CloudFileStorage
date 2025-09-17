@@ -14,22 +14,14 @@
 /backend/.sts4-cache
 
 ### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
 /backend/.idea
 /backend/*.iws
 /backend/*.iml
 /backend/*.ipr
 
-### NetBeans ###
-/backend/nbproject/private/
-/backend/nbbuild/
-/backend/dist/
-/backend/nbdist/
-/backend/.nb-gradle/
-/backend/build/
-!/backend/**/src/main/**/build/
-!/backend/**/src/test/**/build/
-
 /backend/src/main/resources/application-local.yml
-
-### VS Code ###
-/backend/.vscode/
