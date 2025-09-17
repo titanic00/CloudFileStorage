@@ -1,3 +1,18 @@
 spring:
   application:
     name: CloudFileStorage
+  datasource:
+    username:
+    password:
+    url: jdbc:mysql://localhost:3306/cloudfilestorage
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      defer-datasource-initialization: true
+      database-platform: org.hibernate.dialect.MariaDBDialect
+      hibernate:
+        ddl-auto: create
+    sql:
+      init:
+        mode: always
+    main:
+      lazy-initialization: false
