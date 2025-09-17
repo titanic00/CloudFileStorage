@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6b68ca2f-147c-43ae-b59b-35f49ad77bce" name="Changes" comment="create user entity, create connection to database">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/CloudFileStorageApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/configuration/SecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/controller/AuthorizationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/controller/DirectoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/controller/ExceptionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/controller/ResourceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/dto/ErrorResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/exception/AlreadyExists.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/exception/IncorrectCredentials.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/exception/ResourceNotFound.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/exception/UnknownError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/titanic00/cloudfilestorage/exception/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/titanic00/cloudfilestorage/CloudFileStorageApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;titanic00&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/titanic00/CloudFileStorage.git&quot;,
+    &quot;accountId&quot;: &quot;8913dd0f-e92a-4b0e-acc6-0d30f16b3106&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="32n1pbA9RKD5nCKSyScoxTYgwqS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CloudFileStorageApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.build.tools.auto.reload&quot;: &quot;SELECTIVE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="CloudFileStorageApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="CloudFileStorage" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.titanic00.cloudfilestorage.CloudFileStorageApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b68ca2f-147c-43ae-b59b-35f49ad77bce" name="Changes" comment="" />
+      <created>1758041708127</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758041708127</updated>
+      <workItem from="1758041709235" duration="17361000" />
+      <workItem from="1758124615675" duration="38000" />
+      <workItem from="1758124664818" duration="401000" />
+    </task>
+    <task id="LOCAL-00001" summary="add dependencies">
+      <option name="closed" value="true" />
+      <created>1758044202758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758044202758</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add dependencies, endpoints, rename application file">
+      <option name="closed" value="true" />
+      <created>1758050185707</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758050185707</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add exceptions and global exception handler">
+      <option name="closed" value="true" />
+      <created>1758119543498</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758119543498</updated>
+    </task>
+    <task id="LOCAL-00004" summary="create user entity, create connection to database">
+      <option name="closed" value="true" />
+      <created>1758119591038</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758119591038</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add dependencies" />
+    <MESSAGE value="add dependencies, endpoints, rename application file" />
+    <MESSAGE value="add exceptions and global exception handler" />
+    <MESSAGE value="create user entity, create connection to database" />
+    <option name="LAST_COMMIT_MESSAGE" value="create user entity, create connection to database" />
+  </component>
+</project>
