@@ -36,10 +36,12 @@ public class AuthorizationController {
         if(!userService.userExists(user)) {
             throw new IncorrectCredentials("User not found.");
         }
+
         HttpSession session = httpRequest.getSession(false);
         if (session != null && session.getAttribute("SPRING_SECURITY_CONTEXT") != null) {
             throw new AlreadySignedIn("You are already signed in.");
         }
+
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
