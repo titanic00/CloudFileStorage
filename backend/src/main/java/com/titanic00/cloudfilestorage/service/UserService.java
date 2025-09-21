@@ -36,4 +36,8 @@ public class UserService {
     public UserDTO signIn(User user) {
         return UserDTO.from(user);
     }
+
+    public boolean userExists(User user) {
+        return userRepository.findByUsername(user.getUsername()) != null;
+    }
 }

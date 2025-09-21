@@ -33,6 +33,16 @@ public class ExceptionController {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(AlreadySignedIn.class)
+    public ResponseEntity<ErrorResponse> handleAlreadySignedInException(AlreadySignedIn ex) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFound ex) {
         ErrorResponse errorResponse = ErrorResponse.builder()
