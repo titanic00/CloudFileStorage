@@ -19,3 +19,7 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+minio:
+  url: http://localhost:9000
+  bucket: user-files
