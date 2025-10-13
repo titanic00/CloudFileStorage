@@ -1,6 +1,6 @@
 package com.titanic00.cloudfilestorage.controller;
 
-import com.titanic00.cloudfilestorage.dto.ErrorResponse;
+import com.titanic00.cloudfilestorage.dto.response.ErrorResponse;
 import com.titanic00.cloudfilestorage.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

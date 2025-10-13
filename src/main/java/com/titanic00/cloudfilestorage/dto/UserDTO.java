@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ErrorResponse {
-    private String message;
+public class UserDTO {
+    private String username;
 }
