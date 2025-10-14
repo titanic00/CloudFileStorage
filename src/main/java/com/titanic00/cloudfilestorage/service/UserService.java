@@ -4,6 +4,7 @@ import com.titanic00.cloudfilestorage.dto.UserDTO;
 import com.titanic00.cloudfilestorage.dto.request.AuthorizationRequest;
 import com.titanic00.cloudfilestorage.entity.User;
 import com.titanic00.cloudfilestorage.exception.AlreadyExistsException;
+import com.titanic00.cloudfilestorage.exception.NotFoundException;
 import com.titanic00.cloudfilestorage.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,16 @@ public class UserService {
                 .username(authorizationRequest.getUsername())
                 .password(passwordEncoder.encode(authorizationRequest.getPassword()))
                 .build());
+
+        return UserDTO.from(user);
+    }
+
+    public UserDTO signIn(AuthorizationRequest authorizationRequest) {
+        User user = userRepository.findByUsername(authorizationRequest.getUsername());
+
+        if(!passwordEncoder.matches(authorizationRequest.getPassword(), user.getPassword())) {
+            throw new NotFoundException("Password doesn't match.");
+        }
 
         return UserDTO.from(user);
     }

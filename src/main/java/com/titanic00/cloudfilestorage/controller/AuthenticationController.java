@@ -30,7 +30,11 @@ public class AuthenticationController {
     };
 
     @PostMapping("/sign-in")
-    public void signIn() {};
+    public ResponseEntity<UserDTO> signIn(@RequestBody AuthorizationRequest authorizationRequest) {
+        UserDTO signedIn = userService.signIn(authorizationRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(signedIn);
+    };
 
     @PostMapping("/sign-out")
     public void signOut() {};

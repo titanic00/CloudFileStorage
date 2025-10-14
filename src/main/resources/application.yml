@@ -1,5 +1,12 @@
 spring:
+  profiles:
+    active: local
   application:
     name: CloudFileStorage
   datasource:
-    url:
+    url: jdbc:postgresql://localhost:5432/cloud_file_storage
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
