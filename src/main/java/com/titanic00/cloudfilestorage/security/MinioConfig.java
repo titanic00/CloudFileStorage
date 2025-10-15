@@ -1,4 +1,4 @@
-package com.titanic00.cloudfilestorage.config;
+package com.titanic00.cloudfilestorage.security;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;

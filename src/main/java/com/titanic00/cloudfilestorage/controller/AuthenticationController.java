@@ -3,6 +3,8 @@ package com.titanic00.cloudfilestorage.controller;
 import com.titanic00.cloudfilestorage.dto.UserDTO;
 import com.titanic00.cloudfilestorage.dto.request.AuthorizationRequest;
 import com.titanic00.cloudfilestorage.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,19 +25,22 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<UserDTO> signUp(@RequestBody @Valid AuthorizationRequest authorizationRequest) {
+    public ResponseEntity<UserDTO> signUp(@RequestBody @Valid AuthorizationRequest authorizationRequest) throws Exception {
         UserDTO registered = userService.signUp(authorizationRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(registered);
-    };
+    }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<UserDTO> signIn(@RequestBody AuthorizationRequest authorizationRequest) {
-        UserDTO signedIn = userService.signIn(authorizationRequest);
+    public ResponseEntity<UserDTO> signIn(@RequestBody AuthorizationRequest authorizationRequest,
+                                          HttpServletRequest request,
+                                          HttpServletResponse response) {
+        UserDTO signedIn = userService.signIn(authorizationRequest, request, response);
 
         return ResponseEntity.status(HttpStatus.OK).body(signedIn);
-    };
+    }
 
     @PostMapping("/sign-out")
-    public void signOut() {};
+    public void signOut() {
+    }
 }

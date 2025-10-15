@@ -1,13 +1,18 @@
 package com.titanic00.cloudfilestorage.dto;
 
+import com.titanic00.cloudfilestorage.enumeration.ItemType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DirectoryDTO {
     private String path;
     private String name;
-    private Long size;
-    private String type;
+    private String size;
+    private ItemType type;
 }
