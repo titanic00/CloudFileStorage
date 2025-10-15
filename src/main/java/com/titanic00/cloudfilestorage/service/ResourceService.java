@@ -30,6 +30,9 @@ public class ResourceService {
 
     private final UserRepository userRepository;
 
+    @Value("${minio.root-folder}")
+    private String rootFolderName;
+
     public ResourceService(MinioClient minioClient, AuthContext authContext, UserRepository userRepository) {
         this.minioClient = minioClient;
         this.authContext = authContext;
@@ -47,11 +50,11 @@ public class ResourceService {
         return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
     }
 
-    public void createUserRootFolder(Long id) throws Exception {
+    public void createUserRootFolder(Long userId) throws Exception {
         minioClient.putObject(
                 PutObjectArgs.builder()
                         .bucket(bucketName)
-                        .object("user-" + id + "-files/")
+                        .object(String.format(rootFolderName, userId))
                         .stream(new ByteArrayInputStream(new byte[]{}), 0, -1)
                         .build()
         );
@@ -59,7 +62,9 @@ public class ResourceService {
 
     public ResourceDTO uploadFile(String path, MultipartFile file) throws Exception {
         User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
-        String objectName = MinioObjectUtil.buildObjectString(path, file.getOriginalFilename(), user);
+        String objectName = MinioObjectUtil.buildObjectString(path,
+                file.getOriginalFilename(),
+                String.format(rootFolderName, user.getId()));
 
         minioClient.putObject(
                 PutObjectArgs.builder()
