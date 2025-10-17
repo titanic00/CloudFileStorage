@@ -2,7 +2,7 @@ package com.titanic00.cloudfilestorage.util;
 
 public class MinioObjectUtil {
 
-    public static String buildObjectString(String path, String fileName, String rootFolderName) {
+    public static String buildObjectName(String path, String fileName) {
         // avoid double slash at the beginning and at the end
         if (!path.endsWith("/") && !fileName.startsWith("/")) {
             path += "/";
@@ -13,8 +13,6 @@ public class MinioObjectUtil {
             path = path.substring(1);
         }
 
-        System.out.println(rootFolderName);
-
-        return rootFolderName + path + fileName;
+        return path + fileName;
     }
 }

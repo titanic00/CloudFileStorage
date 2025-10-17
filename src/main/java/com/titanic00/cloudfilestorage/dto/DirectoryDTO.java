@@ -1,6 +1,6 @@
 package com.titanic00.cloudfilestorage.dto;
 
-import com.titanic00.cloudfilestorage.enumeration.ItemType;
+import com.titanic00.cloudfilestorage.enumeration.ObjectType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +14,5 @@ public class DirectoryDTO {
     private String path;
     private String name;
     private String size;
-    private ItemType type;
+    private ObjectType type;
 }

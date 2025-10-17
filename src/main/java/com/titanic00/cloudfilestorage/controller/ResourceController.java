@@ -2,6 +2,7 @@ package com.titanic00.cloudfilestorage.controller;
 
 import com.titanic00.cloudfilestorage.dto.ResourceDTO;
 import com.titanic00.cloudfilestorage.service.ResourceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,9 @@ public class ResourceController {
     }
 
     @DeleteMapping("/")
-    public void deleteResource(@RequestParam String path) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteResource(@RequestParam String path) throws Exception {
+        resourceService.deleteFile(path);
     }
 
     @GetMapping("/download")

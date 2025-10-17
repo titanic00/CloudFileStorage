@@ -1,5 +1,5 @@
 package com.titanic00.cloudfilestorage.enumeration;
 
-public enum ItemType {
+public enum ObjectType {
     DIRECTORY, FILE
 }
