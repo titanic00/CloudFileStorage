@@ -105,6 +105,41 @@ public class ResourceService {
         );
     }
 
+    /*
+       Since there is no traditional way to move an object from one place to another,
+       we will copy the object from the source directory to the destination directory
+       and then delete it from the source directory.
+     */
+
+    public ResourceDTO moveResource(String from, String to) throws Exception {
+        User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
+        String objectName = String.format(rootFolderName, user.getId()) + from;
+        String pathTo = String.format(rootFolderName, user.getId()) + to;
+
+        if (!resourceExists(objectName)) {
+            throw new NotFoundException("Object to copy doesn't exist.");
+        }
+
+        CopySource cs = CopySource.builder()
+                .bucket(bucketName)
+                .object(objectName)
+                .build();
+
+        minioClient.copyObject(
+                CopyObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object(pathTo)
+                        .source(cs)
+                        .build()
+        );
+
+        deleteResource(objectName);
+
+        return buildResourceDTO(pathTo);
+    }
+
+
+
     public boolean resourceExists(String objectName) throws Exception {
         try {
             minioClient.statObject(

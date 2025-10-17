@@ -45,7 +45,8 @@ public class ResourceController {
     }
 
     @GetMapping("/move")
-    public void moveResource(@RequestParam String from, @RequestParam String to) {
+    public ResourceDTO moveResource(@RequestParam String from, @RequestParam String to) throws Exception {
+        return resourceService.moveResource(from, to);
     }
 
     @GetMapping("/search")
