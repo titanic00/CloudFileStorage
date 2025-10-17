@@ -2,7 +2,10 @@ package com.titanic00.cloudfilestorage.controller;
 
 import com.titanic00.cloudfilestorage.dto.ResourceDTO;
 import com.titanic00.cloudfilestorage.service.ResourceService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,22 +20,28 @@ public class ResourceController {
     }
 
     @GetMapping("/")
-    public void getResource(@RequestParam String path) {
+    public ResourceDTO getResource(@RequestParam String path) throws Exception {
+        return resourceService.getResource(path);
     }
 
     @PostMapping("/")
     public ResourceDTO uploadResource(@RequestParam String path, @RequestParam("file") MultipartFile file) throws Exception {
-        return resourceService.uploadFile(path, file);
+        return resourceService.uploadResource(path, file);
     }
 
     @DeleteMapping("/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteResource(@RequestParam String path) throws Exception {
-        resourceService.deleteFile(path);
+        resourceService.deleteResource(path);
     }
 
     @GetMapping("/download")
-    public void downloadResource(@RequestParam String path) {
+    public ResponseEntity<byte[]> downloadResource(@RequestParam String path) throws Exception {
+        byte[] zip = resourceService.downloadResource(path);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"download.zip\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM).body(zip);
     }
 
     @GetMapping("/move")

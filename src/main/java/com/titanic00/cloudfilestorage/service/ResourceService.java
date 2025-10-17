@@ -11,6 +11,7 @@ import com.titanic00.cloudfilestorage.util.MinioObjectUtil;
 import com.titanic00.cloudfilestorage.util.ReadableFormatUtil;
 import io.minio.*;
 import io.minio.errors.ErrorResponseException;
+import io.minio.messages.Item;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,7 @@ public class ResourceService {
     private String rootFolderName;
 
     private final MinioClient minioClient;
-
     private final AuthContext authContext;
-
     private final UserRepository userRepository;
 
     public ResourceService(MinioClient minioClient, AuthContext authContext, UserRepository userRepository) {
@@ -39,12 +38,42 @@ public class ResourceService {
         this.userRepository = userRepository;
     }
 
-    public ResourceDTO uploadFile(String path, MultipartFile file) throws Exception {
+    public ResourceDTO getResource(String path) throws Exception {
+        User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
+        String objectName = String.format(rootFolderName, user.getId()) + path;
+
+        if (!resourceExists(objectName)) {
+            throw new AlreadyExistsException("Object doesn't exist.");
+        }
+
+        return buildResourceDTO(objectName);
+    }
+
+    public byte[] downloadResource(String path) throws Exception {
+        User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
+        String fullPath = String.format(rootFolderName, user.getId()) + path;
+
+        Iterable<Result<Item>> items = minioClient.listObjects(
+                ListObjectsArgs.builder()
+                        .bucket(bucketName)
+                        .prefix(fullPath)
+                        .recursive(true)
+                        .build()
+        );
+
+        if (!items.iterator().hasNext()) {
+            throw new AlreadyExistsException("Object doesn't exist.");
+        }
+
+        return MinioObjectUtil.toZip(items);
+    }
+
+    public ResourceDTO uploadResource(String path, MultipartFile file) throws Exception {
         User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
         String objectName = MinioObjectUtil.buildObjectName(String.format(rootFolderName, user.getId()) + path,
                 file.getOriginalFilename());
 
-        if (objectExists(objectName)) {
+        if (resourceExists(objectName)) {
             throw new AlreadyExistsException("Object already exists.");
         }
 
@@ -57,14 +86,14 @@ public class ResourceService {
                         .build()
         );
 
-        return buildResourceDTO(objectName, file);
+        return buildResourceDTO(objectName);
     }
 
-    public void deleteFile(String path) throws Exception {
+    public void deleteResource(String path) throws Exception {
         User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
         String objectName = String.format(rootFolderName, user.getId()) + path;
 
-        if (!objectExists(objectName)) {
+        if (!resourceExists(objectName)) {
             throw new NotFoundException("Object doesn't exist.");
         }
 
@@ -76,7 +105,7 @@ public class ResourceService {
         );
     }
 
-    public boolean objectExists(String objectName) throws Exception {
+    public boolean resourceExists(String objectName) throws Exception {
         try {
             minioClient.statObject(
                     StatObjectArgs.builder()
@@ -115,12 +144,19 @@ public class ResourceService {
         );
     }
 
-    public ResourceDTO buildResourceDTO(String path, MultipartFile file) {
+    public ResourceDTO buildResourceDTO(String objectName) throws Exception {
+        StatObjectResponse statObjectResponse = minioClient.statObject(
+                StatObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object(objectName)
+                        .build()
+        );
+
         return ResourceDTO.builder()
                 // hide user-id-files folder and file name
-                .path(path.substring(path.indexOf("/") + 1, path.lastIndexOf("/") + 1))
-                .name(file.getOriginalFilename())
-                .size(ReadableFormatUtil.humanReadableByteCountSI(file.getSize()))
+                .path(MinioObjectUtil.getPathFromObjectName(statObjectResponse.object()))
+                .name(MinioObjectUtil.getFileNameFromObjectName(statObjectResponse.object()))
+                .size(ReadableFormatUtil.humanReadableByteCountSI(statObjectResponse.size()))
                 .type(ObjectType.FILE)
                 .build();
     }
