@@ -33,6 +33,19 @@ public class MinioObjectUtil {
         return filename;
     }
 
+    public static String getDirNameFromObjectName(String objectName) {
+        int lastButOneIdx;
+
+        for (int i = objectName.lastIndexOf("/") - 1; ; i--) {
+            if (objectName.toCharArray()[i] == '/') {
+                lastButOneIdx = i;
+                break;
+            }
+        }
+
+        return objectName.substring(lastButOneIdx + 1, objectName.lastIndexOf("/") + 1);
+    }
+
     public static String getPathFromObjectName(String objectName) {
         String path = objectName.substring(objectName.indexOf("/") + 1, objectName.lastIndexOf("/") + 1);
         if (path.startsWith("/")) {
@@ -55,5 +68,9 @@ public class MinioObjectUtil {
         }
 
         return baos.toByteArray();
+    }
+
+    public static boolean isDir(String path) {
+        return path.endsWith("/");
     }
 }

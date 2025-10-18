@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ResourceService {
@@ -43,7 +45,7 @@ public class ResourceService {
         String objectName = String.format(rootFolderName, user.getId()) + path;
 
         if (!resourceExists(objectName)) {
-            throw new AlreadyExistsException("Object doesn't exist.");
+            throw new NotFoundException("Object doesn't exist.");
         }
 
         return buildResourceDTO(objectName);
@@ -62,7 +64,7 @@ public class ResourceService {
         );
 
         if (!items.iterator().hasNext()) {
-            throw new AlreadyExistsException("Object doesn't exist.");
+            throw new NotFoundException("Object doesn't exist.");
         }
 
         return MinioObjectUtil.toZip(items);
@@ -133,12 +135,37 @@ public class ResourceService {
                         .build()
         );
 
-        deleteResource(objectName);
+        // deleteResource(objectName);
 
         return buildResourceDTO(pathTo);
     }
 
+    public List<ResourceDTO> searchResource(String query) throws Exception {
+        User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
+        String userRootFolder = String.format(rootFolderName, user.getId());
 
+        Iterable<Result<Item>> items = minioClient.listObjects(
+                ListObjectsArgs.builder()
+                        .bucket(bucketName)
+                        .prefix(userRootFolder)
+                        .recursive(true)
+                        .build()
+        );
+
+        if (!items.iterator().hasNext()) {
+            throw new NotFoundException("No objects match provided query.");
+        }
+
+        List<ResourceDTO> resourceDTOs = new ArrayList<>();
+
+        for (Result<Item> item : items) {
+            if (item.get().objectName().contains(query)) {
+                resourceDTOs.add(buildResourceDTO(item.get().objectName()));
+            }
+        }
+
+        return resourceDTOs;
+    }
 
     public boolean resourceExists(String objectName) throws Exception {
         try {
@@ -187,12 +214,17 @@ public class ResourceService {
                         .build()
         );
 
+        boolean isDir = MinioObjectUtil.isDir(statObjectResponse.object());
+
         return ResourceDTO.builder()
                 // hide user-id-files folder and file name
                 .path(MinioObjectUtil.getPathFromObjectName(statObjectResponse.object()))
-                .name(MinioObjectUtil.getFileNameFromObjectName(statObjectResponse.object()))
+                .name(isDir ?
+                        MinioObjectUtil.getDirNameFromObjectName(statObjectResponse.object()) :
+                        MinioObjectUtil.getFileNameFromObjectName(statObjectResponse.object())
+                )
                 .size(ReadableFormatUtil.humanReadableByteCountSI(statObjectResponse.size()))
-                .type(ObjectType.FILE)
+                .type(isDir ? ObjectType.DIRECTORY : ObjectType.FILE)
                 .build();
     }
 }

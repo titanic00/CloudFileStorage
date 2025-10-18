@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/resource")
 public class ResourceController {
@@ -50,6 +52,7 @@ public class ResourceController {
     }
 
     @GetMapping("/search")
-    public void searchResource(@RequestParam String query) {
+    public List<ResourceDTO> searchResource(@RequestParam String query) throws Exception {
+        return resourceService.searchResource(query);
     }
 }

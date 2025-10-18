@@ -1,5 +1,6 @@
 package com.titanic00.cloudfilestorage.service;
 
+import com.titanic00.cloudfilestorage.context.AuthContext;
 import com.titanic00.cloudfilestorage.dto.UserDTO;
 import com.titanic00.cloudfilestorage.dto.request.AuthorizationRequest;
 import com.titanic00.cloudfilestorage.entity.User;
@@ -29,15 +30,17 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final SecurityContextHolderStrategy securityContextHolderStrategy;
     private final SecurityContextRepository securityContextRepository;
+    private final AuthContext authContext;
 
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder, ResourceService resourceService,
                        AuthenticationManager authenticationManager,
-                       SecurityContextRepository securityContextRepository) {
+                       SecurityContextRepository securityContextRepository, AuthContext authContext) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.resourceService = resourceService;
         this.authenticationManager = authenticationManager;
+        this.authContext = authContext;
         this.securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
         this.securityContextRepository = securityContextRepository;
     }
@@ -75,6 +78,12 @@ public class UserService {
 
     public boolean usernameExists(String username) {
         return userRepository.findByUsername(username) != null;
+    }
+
+    public UserDTO getUser() {
+        User user = userRepository.findByUsername(authContext.getUserDetails().getUsername());
+
+        return UserDTO.from(user);
     }
 
     public void storeAuthenticationToSession(AuthorizationRequest authorizationRequest,
